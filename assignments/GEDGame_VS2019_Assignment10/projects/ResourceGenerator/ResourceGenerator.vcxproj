@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{5A88A109-9C60-4869-9020-D0B280F769A1}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectName>ResourceGenerator</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <NMakeOutput>
+    </NMakeOutput>
+    <NMakePreprocessorDefinitions>NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeBuildCommandLine>echo "Creating new resources..."
+mkdir "$(OutDir)resources"
+"$(OutDir)TerrainGenerator.exe" -r 1024 -o_height "$(OutDir)resources\terrain_height.tiff" -o_color "$(IntDir)terrain_color.tiff" -o_normal "$(IntDir)terrain_normal.tiff"
+"$(OutDir)texconv" -srgbi -f R8G8B8A8_UNORM_SRGB -o "$(OutDir)resources" "$(IntDir)terrain_color.tiff" -y
+"$(OutDir)texconv" -f BC5_UNORM -o "$(OutDir)resources" "$(IntDir)terrain_normal.tiff" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f R8G8B8A8_UNORM_SRGB "..\..\..\..\external\textures\debug_green.jpg" -y
+echo Terrain done
+
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\01-Cockpit\cockpit\final\cockpit_o_low.obj" -o "$(OutDir)resources\cockpit_o_low.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\cockpit\final\cockpit_m_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\cockpit\final\cockpit_m_specular.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\cockpit\final\cockpit_m_glow.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\01-Cockpit\gatling_gun\final\gatling_o_base.obj" -o "$(OutDir)resources\gatling_o_base.t3d" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\01-Cockpit\gatling_gun\final\gatling_o_top.obj" -o "$(OutDir)resources\gatling_o_top.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\gatling_gun\final\gatling_m_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\gatling_gun\final\gatling_m_specular.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\gatling_gun\final\gatling_m_glow.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\01-Cockpit\plasma_gun\final\plasma_o_base.obj" -o "$(OutDir)resources\plasma_o_base.t3d" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\01-Cockpit\plasma_gun\final\plasma_o_top.obj" -o "$(OutDir)resources\plasma_o_top.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\plasma_gun\final\plasma_m_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\plasma_gun\final\plasma_m_specular.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\plasma_gun\final\plasma_m_glow.png" -y
+echo Turret done
+
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\03-Environment\tower\tower.obj" -o "$(OutDir)resources\tower.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\tower\tower_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\tower\tower_specular.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\03-Environment\barracks\barracks.obj" -o "$(OutDir)resources\barracks.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\barracks\barracks_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\barracks\barracks_specular.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\03-Environment\stones\stone_02\stone_02.obj" -o "$(OutDir)resources\stone_02.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\stones\stone_02\stone_02_m_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\stones\stone_02\stone_02_m_specular.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\03-Environment\trees\bare\bare_02.obj" -o "$(OutDir)resources\bare_02.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\trees\bare\bare_diffuse.png" -y
+echo Environment done
+
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\02-Enemies\amy_spaceship\amy_spaceship_stage01.obj" -o "$(OutDir)resources\amy_spaceship_stage01.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\amy_spaceship\amy_spaceship_DIFFUSE.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\amy_spaceship\amy_spaceship_SPECULAR_001.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\amy_spaceship\amy_spaceship_GLOWMAP.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\02-Enemies\juf_spaceship\juf_spaceship.obj" -o "$(OutDir)resources\juf_spaceship.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\juf_spaceship\juf_spaceship_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\juf_spaceship\juf_spaceship_specular.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\juf_spaceship\juf_spaceship_glow.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\02-Enemies\lup_final\lup_ship.obj" -o "$(OutDir)resources\lup_ship.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\lup_final\lup_diffuse_ship.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\lup_final\spec_ship.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\lup_final\lup_glow_ship.png" -y
+
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC3_UNORM_SRGB "$(SolutionDir)..\..\external\art\05-Sprites\simple\parTrailGatlingDiffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC3_UNORM_SRGB "$(SolutionDir)..\..\external\art\05-Sprites\simple\parTrailPlasmaDiffuse.png" -y
+echo Sprites done</NMakeBuildCommandLine>
+    <NMakeCleanCommandLine>echo "Deleting old resources..."
+del /Q "$(IntDir)*"
+del /Q "$(OutDir)resources\*"</NMakeCleanCommandLine>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <NMakeOutput>
+    </NMakeOutput>
+    <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeBuildCommandLine>echo "Creating new resources..."
+mkdir "$(OutDir)resources"
+"$(OutDir)TerrainGenerator.exe" -r 1024 -o_height "$(OutDir)resources\terrain_height.tiff" -o_color "$(IntDir)terrain_color.tiff" -o_normal "$(IntDir)terrain_normal.tiff"
+"$(OutDir)texconv" -srgbi -f R8G8B8A8_UNORM_SRGB -o "$(OutDir)resources" "$(IntDir)terrain_color.tiff" -y
+"$(OutDir)texconv" -f BC5_UNORM -o "$(OutDir)resources" "$(IntDir)terrain_normal.tiff" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f R8G8B8A8_UNORM_SRGB "..\..\..\..\external\textures\debug_green.jpg" -y
+echo Terrain done
+
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\01-Cockpit\cockpit\final\cockpit_o_low.obj" -o "$(OutDir)resources\cockpit_o_low.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\cockpit\final\cockpit_m_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\cockpit\final\cockpit_m_specular.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\cockpit\final\cockpit_m_glow.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\01-Cockpit\gatling_gun\final\gatling_o_base.obj" -o "$(OutDir)resources\gatling_o_base.t3d" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\01-Cockpit\gatling_gun\final\gatling_o_top.obj" -o "$(OutDir)resources\gatling_o_top.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\gatling_gun\final\gatling_m_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\gatling_gun\final\gatling_m_specular.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\gatling_gun\final\gatling_m_glow.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\01-Cockpit\plasma_gun\final\plasma_o_base.obj" -o "$(OutDir)resources\plasma_o_base.t3d" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\01-Cockpit\plasma_gun\final\plasma_o_top.obj" -o "$(OutDir)resources\plasma_o_top.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\plasma_gun\final\plasma_m_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\plasma_gun\final\plasma_m_specular.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\plasma_gun\final\plasma_m_glow.png" -y
+echo Turret done
+
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\03-Environment\tower\tower.obj" -o "$(OutDir)resources\tower.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\tower\tower_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\tower\tower_specular.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\03-Environment\barracks\barracks.obj" -o "$(OutDir)resources\barracks.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\barracks\barracks_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\barracks\barracks_specular.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\03-Environment\stones\stone_02\stone_02.obj" -o "$(OutDir)resources\stone_02.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\stones\stone_02\stone_02_m_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\stones\stone_02\stone_02_m_specular.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\03-Environment\trees\bare\bare_02.obj" -o "$(OutDir)resources\bare_02.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\trees\bare\bare_diffuse.png" -y
+echo Environment done
+
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\02-Enemies\amy_spaceship\amy_spaceship_stage01.obj" -o "$(OutDir)resources\amy_spaceship_stage01.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\amy_spaceship\amy_spaceship_DIFFUSE.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\amy_spaceship\amy_spaceship_SPECULAR_001.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\amy_spaceship\amy_spaceship_GLOWMAP.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\02-Enemies\juf_spaceship\juf_spaceship.obj" -o "$(OutDir)resources\juf_spaceship.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\juf_spaceship\juf_spaceship_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\juf_spaceship\juf_spaceship_specular.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\juf_spaceship\juf_spaceship_glow.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\02-Enemies\lup_final\lup_ship.obj" -o "$(OutDir)resources\lup_ship.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\lup_final\lup_diffuse_ship.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\lup_final\spec_ship.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\lup_final\lup_glow_ship.png" -y
+
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC3_UNORM_SRGB "$(SolutionDir)..\..\external\art\05-Sprites\simple\parTrailGatlingDiffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC3_UNORM_SRGB "$(SolutionDir)..\..\external\art\05-Sprites\simple\parTrailPlasmaDiffuse.png" -y
+echo Sprites done</NMakeBuildCommandLine>
+    <NMakeCleanCommandLine>echo "Deleting old resources..."
+del /Q "$(IntDir)*"
+del /Q "$(OutDir)resources\*"</NMakeCleanCommandLine>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <NMakeOutput>
+    </NMakeOutput>
+    <NMakePreprocessorDefinitions>_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeBuildCommandLine>echo "Creating new resources..."
+mkdir "$(OutDir)resources"
+"$(OutDir)TerrainGenerator.exe" -r 1024 -o_height "$(OutDir)resources\terrain_height.tiff" -o_color "$(IntDir)terrain_color.tiff" -o_normal "$(IntDir)terrain_normal.tiff"
+"$(OutDir)texconv" -srgbi -f R8G8B8A8_UNORM_SRGB -o "$(OutDir)resources" "$(IntDir)terrain_color.tiff" -y
+"$(OutDir)texconv" -f BC5_UNORM -o "$(OutDir)resources" "$(IntDir)terrain_normal.tiff" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f R8G8B8A8_UNORM_SRGB "..\..\..\..\external\textures\debug_green.jpg" -y
+echo Terrain done
+
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\01-Cockpit\cockpit\final\cockpit_o_low.obj" -o "$(OutDir)resources\cockpit_o_low.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\cockpit\final\cockpit_m_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\cockpit\final\cockpit_m_specular.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\cockpit\final\cockpit_m_glow.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\01-Cockpit\gatling_gun\final\gatling_o_base.obj" -o "$(OutDir)resources\gatling_o_base.t3d" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\01-Cockpit\gatling_gun\final\gatling_o_top.obj" -o "$(OutDir)resources\gatling_o_top.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\gatling_gun\final\gatling_m_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\gatling_gun\final\gatling_m_specular.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\gatling_gun\final\gatling_m_glow.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\01-Cockpit\plasma_gun\final\plasma_o_base.obj" -o "$(OutDir)resources\plasma_o_base.t3d" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\01-Cockpit\plasma_gun\final\plasma_o_top.obj" -o "$(OutDir)resources\plasma_o_top.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\plasma_gun\final\plasma_m_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\plasma_gun\final\plasma_m_specular.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\plasma_gun\final\plasma_m_glow.png" -y
+echo Turret done
+
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\03-Environment\tower\tower.obj" -o "$(OutDir)resources\tower.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\tower\tower_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\tower\tower_specular.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\03-Environment\barracks\barracks.obj" -o "$(OutDir)resources\barracks.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\barracks\barracks_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\barracks\barracks_specular.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\03-Environment\stones\stone_02\stone_02.obj" -o "$(OutDir)resources\stone_02.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\stones\stone_02\stone_02_m_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\stones\stone_02\stone_02_m_specular.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\03-Environment\trees\bare\bare_02.obj" -o "$(OutDir)resources\bare_02.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\trees\bare\bare_diffuse.png" -y
+echo Environment done
+
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\02-Enemies\amy_spaceship\amy_spaceship_stage01.obj" -o "$(OutDir)resources\amy_spaceship_stage01.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\amy_spaceship\amy_spaceship_DIFFUSE.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\amy_spaceship\amy_spaceship_SPECULAR_001.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\amy_spaceship\amy_spaceship_GLOWMAP.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\02-Enemies\juf_spaceship\juf_spaceship.obj" -o "$(OutDir)resources\juf_spaceship.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\juf_spaceship\juf_spaceship_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\juf_spaceship\juf_spaceship_specular.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\juf_spaceship\juf_spaceship_glow.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\02-Enemies\lup_final\lup_ship.obj" -o "$(OutDir)resources\lup_ship.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\lup_final\lup_diffuse_ship.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\lup_final\spec_ship.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\lup_final\lup_glow_ship.png" -y
+
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC3_UNORM_SRGB "$(SolutionDir)..\..\external\art\05-Sprites\simple\parTrailGatlingDiffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC3_UNORM_SRGB "$(SolutionDir)..\..\external\art\05-Sprites\simple\parTrailPlasmaDiffuse.png" -y
+echo Sprites done</NMakeBuildCommandLine>
+    <NMakeCleanCommandLine>echo "Deleting old resources..."
+del /Q "$(IntDir)*"
+del /Q "$(OutDir)resources\*"</NMakeCleanCommandLine>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <NMakeOutput>
+    </NMakeOutput>
+    <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeBuildCommandLine>echo "Creating new resources..."
+mkdir "$(OutDir)resources"
+"$(OutDir)TerrainGenerator.exe" -r 1024 -o_height "$(OutDir)resources\terrain_height.tiff" -o_color "$(IntDir)terrain_color.tiff" -o_normal "$(IntDir)terrain_normal.tiff"
+"$(OutDir)texconv" -srgbi -f R8G8B8A8_UNORM_SRGB -o "$(OutDir)resources" "$(IntDir)terrain_color.tiff" -y
+"$(OutDir)texconv" -f BC5_UNORM -o "$(OutDir)resources" "$(IntDir)terrain_normal.tiff" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f R8G8B8A8_UNORM_SRGB "..\..\..\..\external\textures\debug_green.jpg" -y
+echo Terrain done
+
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\01-Cockpit\cockpit\final\cockpit_o_low.obj" -o "$(OutDir)resources\cockpit_o_low.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\cockpit\final\cockpit_m_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\cockpit\final\cockpit_m_specular.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\cockpit\final\cockpit_m_glow.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\01-Cockpit\gatling_gun\final\gatling_o_base.obj" -o "$(OutDir)resources\gatling_o_base.t3d" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\01-Cockpit\gatling_gun\final\gatling_o_top.obj" -o "$(OutDir)resources\gatling_o_top.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\gatling_gun\final\gatling_m_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\gatling_gun\final\gatling_m_specular.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\gatling_gun\final\gatling_m_glow.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\01-Cockpit\plasma_gun\final\plasma_o_base.obj" -o "$(OutDir)resources\plasma_o_base.t3d" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\01-Cockpit\plasma_gun\final\plasma_o_top.obj" -o "$(OutDir)resources\plasma_o_top.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\plasma_gun\final\plasma_m_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\plasma_gun\final\plasma_m_specular.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\01-Cockpit\plasma_gun\final\plasma_m_glow.png" -y
+echo Turret done
+
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\03-Environment\tower\tower.obj" -o "$(OutDir)resources\tower.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\tower\tower_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\tower\tower_specular.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\03-Environment\barracks\barracks.obj" -o "$(OutDir)resources\barracks.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\barracks\barracks_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\barracks\barracks_specular.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\03-Environment\stones\stone_02\stone_02.obj" -o "$(OutDir)resources\stone_02.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\stones\stone_02\stone_02_m_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\stones\stone_02\stone_02_m_specular.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\03-Environment\trees\bare\bare_02.obj" -o "$(OutDir)resources\bare_02.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\03-Environment\trees\bare\bare_diffuse.png" -y
+echo Environment done
+
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\02-Enemies\amy_spaceship\amy_spaceship_stage01.obj" -o "$(OutDir)resources\amy_spaceship_stage01.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\amy_spaceship\amy_spaceship_DIFFUSE.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\amy_spaceship\amy_spaceship_SPECULAR_001.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\amy_spaceship\amy_spaceship_GLOWMAP.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\02-Enemies\juf_spaceship\juf_spaceship.obj" -o "$(OutDir)resources\juf_spaceship.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\juf_spaceship\juf_spaceship_diffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\juf_spaceship\juf_spaceship_specular.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\juf_spaceship\juf_spaceship_glow.png" -y
+"$(SolutionDir)..\..\external\Tools\bin\obj2t3d.exe" -i "$(SolutionDir)..\..\external\art\02-Enemies\lup_final\lup_ship.obj" -o "$(OutDir)resources\lup_ship.t3d" -y 
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\lup_final\lup_diffuse_ship.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\lup_final\spec_ship.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC1_UNORM_SRGB "$(SolutionDir)..\..\external\art\02-Enemies\lup_final\lup_glow_ship.png" -y
+
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC3_UNORM_SRGB "$(SolutionDir)..\..\external\art\05-Sprites\simple\parTrailGatlingDiffuse.png" -y
+"$(OutDir)texconv" -o "$(OutDir)resources" -srgbi -f BC3_UNORM_SRGB "$(SolutionDir)..\..\external\art\05-Sprites\simple\parTrailPlasmaDiffuse.png" -y
+echo Sprites done</NMakeBuildCommandLine>
+    <NMakeCleanCommandLine>echo "Deleting old resources..."
+del /Q "$(IntDir)*"
+del /Q "$(OutDir)resources\*"</NMakeCleanCommandLine>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
